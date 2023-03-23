@@ -28,18 +28,27 @@ const userSchema = new mongoose.Schema({
         unique: true,
         trim: true
     },
+    password: {
+        type: String,
+        required: true,
+        maxlength: 32,
+        minlenght: 3
+    }
+    /*
     encry_password: {
         type: String,
         required: true
     },
     salt: String
+    */
 }, {timestamps: true})
 
+/*
 userSchema.virtual('password')
     .set((password) => {
         this._password = password;
         this.salt = uuidv4();
-        this.encry_password = this.securePassword(password);
+        this.encry_password = securePassword(password);
     }).get(() => {
         return this._password;
     });
@@ -59,7 +68,7 @@ userSchema.methods = {
         }
     }
 };
-
+*/
 
 
 module.exports = mongoose.model('userModel', userSchema);
