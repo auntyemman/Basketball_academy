@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="/static/stlye.css">
+    <link rel="stylesheet" href="link rel=" rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!------ icons version 5.0--
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/fontawesome.min.css">
+---->    
+</head>
+<body>
+<section class="header">
+        <nav>
+            <a href="/"><img src="images/logo.png" alt="basketball logo"></a>
+            <div class="nav-links" id="navLinks">
+                <i class="fa fa-times" onclick="hideMenu()"></i>
+                <ul>
+                    <li><a href="/">HOME</a></li>
+                    <li><a href="/about">ABOUT</a></li>
+                    <li><a href="/training">TRAINING</a></li>
+                    <li><a href="/blog">BLOG</a></li>
+                    <li><a href="/contact">CONTACT</a></li>
+                    <li><a href="/login">LOGIN</a></li>
+                </ul>
+            </div>
+            <i class="fa fa-bars" onclick="showMenu()"></i>
+        </nav>
+<div class="text-box">
+        <h1>Mole's Street Basketball Academy</h1>
+        <p>We train best hoopers with great skillsets on good facilities to take on the world stage. <br> Basketball from the streets to the world!</p>
+        <a href="/contact" class="hero-btn">Visit us to know more</a>
+</div>
+
+</section>
+
+<!--training section-->
+
+<section class="training">
+    <h1>Core Training</h1>
+    <p>We offer core training ranging from handles, shooting to passing.</p>
+    <div class="row">
+        <div class="training-col">
+            <h3>Beginer</h3>
+            <p>We have a lot of exciting training drills for absolute beginers. Beginers are exposed to basketball shooting drills like the form shooting, Kevin Durant shooting workout, wing screen, Ray Allen shooting, Stephen Curry shooting, player decision shooting and spot fast break shooting. </p>
+        </div>
+        <div class="training-col">
+            <h3>Intermediate</h3>
+            <p>We have a lot of exciting training drills for intermediate hoopers. This set of hoopers are drilled with offensive moves like the overlap, 1v1 moves, euro finishing, baseline escape, trailing lay up and dribbling drills </p>
+        </div>
+        <div class="training-col">
+            <h3>Expert</h3>
+            <p>We have a lot of exciting training drills for absolute hoopers. Our hoopers are drilled with layup and finishing drills, rebounding drills, agility or defense drills, passing drills, dribbling drills, post play drills, warm up drills, conditioning drills and footwork drills.</p>
+        </div>
+    </div>
+
+</section>
+
+<!-------facilities-->
+
+<section class="facilities">
+    <h1>Our facilities</h1>
+    <p>We have a decent facilities capable of creating world class hoopers</p>
+    <div class="row">
+        <div class="facilities-col">
+            <img src="images/net.jpg" alt="basketball net">
+            <div class="layer">
+                <h3>BOARD</h3>
+            </div>
+        </div>
+        <div class="facilities-col1">
+            <img src="images/player.jpg" alt="basketball court">
+            <div class="layer">
+                <h3>COURT</h3>
+            </div>
+        </div>
+        <div class="facilities-col2">
+            <img src="images/pic2.jpg" alt="basketball players">
+            <div class="layer">
+                <h3>PLAYERS</h3>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!----------- testimonials---------->
+<section class="testimonials">
+    <h1>What our students say</h1>
+    <p>We have hoopers that have made it big on the world stage and here are some testimonials</p>
+    <div class="row">
+        <div class="testimonials-col">
+            <img src="images/pic1.jpg" alt="team picture">
+            <div>
+                <p>I am now a pro baller, playing for the Golden State Warriors, alongside Steph Curry. Thanks to Mole's Street Basketball.</p>
+                <cite><b>-1mole</b></cite>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star-o"></i>
+            </div>
+        </div>
+        <div class="testimonials-col">
+            <img src="images/logo.png" alt="logo picture">
+            <div>
+                <p>I am now an NBA player, playing for the LA Lakers, alongside LeBron James and AD. Thanks to Mole's Street Basketball.</p>
+                <cite><b>-Basalt</b></cite>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star-half-o"></i>
+            </div>
+        </div>
+    </div>
+</section>
+<!-----------call to action ------------------------------------------------------->
+<section class="cta">
+    <h1>Enroll Now To Our Academy <br> Anywhere In The World</h1>
+    <a href="/contact" class="hero-btn">CONTACT US</a>
+</section>
+<!------------------footer------------------------>
+<section class="footer">
+    <h3>About Us</h3>
+    <p> We have been around for quite some time and we have been doing extremely well transforming street players <br> to world class players. Our facilities are decent enough to support our goals. </p>
+    <div class="icons">
+        <a href="https://facebook.com" target="_blank"><i class="fa fa-facebook"></i></a>
+        <a href="https://twitter.com" target="_blank"><i class="fa fa-twitter"></i></a>
+        <a href="https://instagram.com" target="_blank"><i class="fa fa-instagram"></i></a>
+        <a href="https://linkedin.com" target="_blank"><i class="fa fa-linkedin"></i></a>
+    </div>
+    <p>Made By 1Mole</p>
+</section>
+<!-----------javaScript for toggle -->
+<script>
+    var navLinks= document.getElementById("navLinks");
+    function showMenu(){
+        navLinks.style.right= "0"
+    }
+    function hideMenu(){
+        navLinks.style.right= "-200px"
+    }
+</script>
+</body>
+</html>
+

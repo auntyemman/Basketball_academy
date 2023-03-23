@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact</title>
+    <link rel="stylesheet" href="/static/stlye.css">
+    <link rel="stylesheet" href="link" rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/fontawesome.min.css">
+</head>
+<body>
+<section class="sub-header">
+        <nav>
+            <a href="index.html"><img src="images/logo.png" alt="basketball logo"></a>
+            <div class="nav-links" id="navLinks">
+                <i class="fa fa-times" onclick="hideMenu()"></i>
+                <ul>
+                    <li><a href="/">HOME</a></li>
+                    <li><a href="/about">ABOUT</a></li>
+                    <li><a href="/training">TRAINING</a></li>
+                    <li><a href="/blog">BLOG</a></li>
+                    <li><a href="/contact">CONTACT</a></li>
+                    <li><a href="/login">LOGIN</a></li>
+                </ul>
+            </div>
+            <i class="fa fa-bars" onclick="showMenu()"></i>
+        </nav>
+        <h1>Contact Us</h1>
+</section>
+<!-----------------------contact us content------------->
+<section class="location">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15884.524640790058!2d5.772557726902866!3d5.547564735642495!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1041ad9a4273aa01%3A0x34e8c0ae42632c8a!2sEffurun%20II%2C%20330102%2C%20Warri!5e0!3m2!1sen!2sng!4v1641393639712!5m2!1sen!2sng" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+
+</section>
+
+<section class="contact-us">
+    <div class="row">
+        <div class="contact-col">
+            <div>
+                <i class="fa fa-home"></i>
+                <span>
+                    <h5>5, Enerhen Road, Effurun,</h5>
+                    <p>Warri, Delta State, Nigeria.</p>
+                </span>
+            </div>
+            <div>
+                <i class="fa fa-phone"></i>
+                <span>
+                    <h5>+234 08102901097</h5>
+                    <p>Monday to Saturday, 7am to 6pm. <br>Sunday, 2pm to 6pm.</p>
+                </span>
+            </div>
+            <div>
+                <i class="fa fa-envelope-o"></i>
+                <span>
+                    <h5>info@molehoopers.com</h5>
+                    <p>Email us your questions</p>
+                </span>
+            </div>
+        </div>
+        <div class="contact-col-message">
+            <form action="form-handler.php" method="post">
+                <input type="text" name="name" placeholder="Enter Your Name" required>
+                <input type="email" name="email" placeholder="Enter Email Address" required>
+                <input type="text" name="training" placeholder="Enter Your Training" required>
+                <textarea rows="8" name="message" placeholder="Message"></textarea>
+                <button class="about-btn">Send Message</button>
+            </form>
+        </div>
+    </div>
+
+</section>
+
+
+<!------------------footer------------------------>
+<section class="footer">
+    <h3>About Us</h3>
+    <p> We have been around for quite some time and we have been doing extremely well, transforming street players <br> to world class players. Our facilities are decent enough to support our goals. </p>
+    <div class="icons">
+        <a href="https://facebook.com"><i class="fa fa-facebook"></i></a>
+        <a href="https://twitter.com"><i class="fa fa-twitter"></i></a>
+        <a href="https://instagram.com"><i class="fa fa-instagram"></i></a>
+        <a href="https://linkedin.com"><i class="fa fa-linkedin"></i></a>
+    </div>
+    <p>Made By 1Mole</p>
+</section>
+<!-----------javaScript for toggle -->
+<script>
+    var navLinks= document.getElementById("navLinks");
+    function showMenu(){
+        navLinks.style.right= "0"
+    }
+    function hideMenu(){
+        navLinks.style.right= "-200px"
+    }
+</script>
+</body>
+</html>
+
