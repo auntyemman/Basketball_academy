@@ -1,25 +1,41 @@
 const express = require('express');
+const userModel = require('../models/user_model');
 const { register } = require('../controllers/user_cont')
+const bcrypt = require('bcryptjs');
 
 const router = express.Router();
-
-const credential = {
-    email: 'mole@gmail.com',
-    password: 'mole'
-};
 
 //signing up or registration
 router.post('/register', register);
 
 // login user route
-router.post('/login', (req, res) => {
-    if(req.body.email === credential.email && req.body.password === credential.password) {
+router.post('/login', async (req, res) => {
+    /*if(req.body.email === userModel.email && req.body.password === userModel.password) {
         req.session.user = req.body.email;
         res.redirect('/route/dashboard');
-        //res.end('login successful');
     } else {
         res.end('Invalid email or password');
-    };
+    };*/
+    try {
+        // check if the user exists
+        const user = await userModel.findOne({ email: req.body.email });
+        if (user) {
+          //check if password matches
+          const result = bcrypt.compareSync(req.body.password, user.password);
+          /*const result = req.body.password === user.password;*/
+          if (result) {
+            req.session.user = req.body.email;
+            res.redirect('/route/dashboard');
+          } else {
+            res.status(400).json({ error: "password doesn't match" });
+          }
+        } else {
+          res.status(400).json({ error: "User doesn't exist" });
+        }
+      } catch (error) {
+        res.status(400).json({ error });
+        console.log(error);
+      }
 });
 
 // dashboard route
@@ -42,6 +58,5 @@ router.get('/logout', (req, res) => {
         }
     })
 });
-
 
 module.exports = router;
