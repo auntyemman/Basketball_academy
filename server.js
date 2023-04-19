@@ -7,6 +7,7 @@ const session = require('express-session');
 const {v4:uuidv4} = require('uuid');
 const cors = require('cors');
 require('dotenv').config();
+//const { resetPassword } = require('./controllers/user_cont')
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -73,6 +74,13 @@ app.get('/contact', (req, res) => {
 app.get('/register', (req, res) => {
     res.render('register')
 });
-
+//user forgot password route
+app.get('/forgot_password', (req, res) => {
+    res.render('forgot_password')
+});
+//reset password route from controller
+app.get('/reset_password/:id/:token', (req, res) => {
+    res.render('reset_password');
+});
 
 app.listen(port, () => console.log('server connected at port 3000'));

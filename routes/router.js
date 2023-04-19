@@ -1,21 +1,21 @@
 const express = require('express');
 const userModel = require('../models/user_model');
-const { register } = require('../controllers/user_cont')
+const { register, forgotPassword, resetPassword } = require('../controllers/user_cont')
 const bcrypt = require('bcryptjs');
 
 const router = express.Router();
 
-//signing up or registration
+//signing up or registration route
 router.post('/register', register);
+
+//forgot password route
+router.post('/forgot_password', forgotPassword);
+
+//reset password route
+router.post('/reset_password', resetPassword);
 
 // login user route
 router.post('/login', async (req, res) => {
-    /*if(req.body.email === userModel.email && req.body.password === userModel.password) {
-        req.session.user = req.body.email;
-        res.redirect('/route/dashboard');
-    } else {
-        res.end('Invalid email or password');
-    };*/
     try {
         // check if the user exists
         const user = await userModel.findOne({ email: req.body.email });
@@ -34,14 +34,13 @@ router.post('/login', async (req, res) => {
         }
       } catch (error) {
         res.status(400).json({ error });
-        console.log(error);
       }
 });
 
 // dashboard route
 router.get('/dashboard', (req, res) => {
     if(req.session.user) {
-        res.render('dashboard', {user:req.session.user});
+        res.render('dashboard', {user: req.session.user});
     }else {
         res.send('Unauthorized user!');
     }
