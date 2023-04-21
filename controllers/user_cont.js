@@ -41,7 +41,7 @@ exports.forgotPassword = async (req, res) => {
     }
 };
 
-//forgot password controller
+//reset password controller
 exports.resetPassword = async (req, res) => {
     const {id, token} = req.params;
     const {password} = req.body;
