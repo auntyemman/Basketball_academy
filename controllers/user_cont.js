@@ -1,5 +1,6 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+//const bcrypt = require('bcryptjs');
 require('dotenv').config();
 const userModel = require('../models/user_model');
 
@@ -43,6 +44,7 @@ exports.forgotPassword = async (req, res) => {
 //forgot password controller
 exports.resetPassword = async (req, res) => {
     const {id, token} = req.params;
+    const {password} = req.body;
     const oldUser = await userModel.findOne({_id: id});
     if (!oldUser) {
         res.send('User do not exist');
@@ -50,6 +52,15 @@ exports.resetPassword = async (req, res) => {
     const secret = process.env.JWT_SECRET + oldUser.password;
     try {
         const verify = jwt.verify(token, secret);
+        const encryptedPassword = bcrypt.hashSync(password, 8);
+        await userModel.updateOne(
+            {
+                _id: id
+            }, 
+            {
+                $set: {password: encryptedPassword}
+            }
+            );
         res.send('Verified');
     } catch (error) {
         res.send('User not verified');

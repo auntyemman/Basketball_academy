@@ -43,7 +43,7 @@ app.use(session({
 
 //routes folder import
 const router = require('./routes/router');
-//using routes
+//using routes model
 app.use('/route', router);
 
 // login route
