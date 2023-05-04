@@ -1,12 +1,15 @@
+require('dotenv').config();
 const mongoose = require('mongoose');
 const express = require('express');
+//const passport = require('passport');
 const path = require('path');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const {v4:uuidv4} = require('uuid');
 const cors = require('cors');
-require('dotenv').config();
+const jwt = require('jsonwebtoken');
+const userModel = require('./models/user_model');
 //const { resetPassword } = require('./controllers/user_cont')
 
 const app = express();
@@ -38,13 +41,47 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(session({
     secret: uuidv4(),
     resave: false,
-    saveUninitialized: true
+    saveUninitialized: false,
+    cookie: {secure: true}
 }));
+/*
+app.use(passport.initialize());
+app.use(passport.session());*/
 
-//routes folder import
+//router routes folder import
 const router = require('./routes/router');
 //using routes model
 app.use('/route', router);
+/*
+//googleApi routes folder import
+const googleApi = require('./routes/google_auth');
+//using routes model
+app.use('/api/auth', googleApi);
+*/
+/*--------------------------------------testing google auth get request-----------------------------------------*/
+/*
+//onst googleAuth = require('./middlewares/google_auth');
+require('./src/config/google');
+
+app.get(
+    "/api/auth/google",
+    passport.authenticate("google", {
+      scope: ["profile", "email"],
+    })
+  );
+  
+  app.get(
+    "/api/auth/google/redirect",
+    passport.authenticate("google", {
+      failureRedirect: "/",
+      successRedirect: "/profile",
+      failureFlash: true,
+      successFlash: "Successfully logged in!",
+    })
+  );
+  */
+/*----------------------------xxx-------testing google auth get request----------xxx----------------------------*/
+
 
 // login route
 app.get('/login', (req, res) => {
@@ -78,9 +115,29 @@ app.get('/register', (req, res) => {
 app.get('/forgot_password', (req, res) => {
     res.render('forgot_password')
 });
-//reset password route from controller
+/*reset password route from controller
 app.get('/reset_password/:id/:token', (req, res) => {
     res.render('reset_password');
-});
+});*/
+  
+//get request for reset password
+app.get('/reset_password/:id/:token', async(req, res) => {
+    console.log(req.params);
+    const oldUser = await userModel.findOne({ _id: req.params.id });
+    console.log(oldUser);
+    if (!oldUser) {
+      return res.send('User does not exist!!!');
+    }
+    const secret = process.env.JWT_SECRET + oldUser.password;
+    console.log(oldUser.password);
+    try {
+      const verify = jwt.verify(req.params.token, secret);
+      res.render('reset_password', {email: verify.email});
+    } catch (error) {
+      console.log(error);
+      res.send('Not verified');
+    }
+  });
+
 
 app.listen(port, () => console.log('server connected at port 3000'));

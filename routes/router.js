@@ -4,7 +4,7 @@ const { register, forgotPassword, resetPassword } = require('../controllers/user
 const bcrypt = require('bcryptjs');
 
 const router = express.Router();
-
+/*---------------------------------------------post requests-------------------------------------------*/
 //signing up or registration route
 router.post('/register', register);
 
@@ -22,7 +22,6 @@ router.post('/login', async (req, res) => {
         if (user) {
           //check if password matches
           const result = bcrypt.compareSync(req.body.password, user.password);
-          /*const result = req.body.password === user.password;*/
           if (result) {
             req.session.user = req.body.email;
             res.redirect('/route/dashboard');
@@ -37,6 +36,9 @@ router.post('/login', async (req, res) => {
       }
 });
 
+/*----------------------------xxx-----------------post requests-------------------xxxx-----------------------*/
+
+/*---------------------------------------------get requests-------------------------------------------*/
 // dashboard route
 router.get('/dashboard', (req, res) => {
     if(req.session.user) {
@@ -58,4 +60,5 @@ router.get('/logout', (req, res) => {
     })
 });
 
+/*---------------------------------------xxx------get requests-----xxx--------------------------------------*/
 module.exports = router;

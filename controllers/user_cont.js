@@ -1,7 +1,6 @@
+require('dotenv').config();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-//const bcrypt = require('bcryptjs');
-require('dotenv').config();
 const userModel = require('../models/user_model');
 
 //signup controller
@@ -28,6 +27,7 @@ exports.register = (req, res) => {
 exports.forgotPassword = async (req, res) => {
     try {
         const oldUser = await userModel.findOne({ email: req.body.email });
+        //console.log(oldUser, 'from forgot password');
         if (!oldUser){
             res.send('User does not exist');
         }
@@ -43,27 +43,29 @@ exports.forgotPassword = async (req, res) => {
 
 //reset password controller
 exports.resetPassword = async (req, res) => {
-    const {id, token} = req.params;
-    const {password} = req.body;
-    const oldUser = await userModel.findOne({_id: id});
+    console.log(req.params);
+    const oldUser = await userModel.findOne({ _id: req.params.id });
+    console.log('old user is returning', oldUser);
     if (!oldUser) {
-        res.send('User do not exist');
+        res.send('User can not be reset');
     }
+    console.log(oldUser.password);
     const secret = process.env.JWT_SECRET + oldUser.password;
     try {
-        const verify = jwt.verify(token, secret);
+        const verify = jwt.verify(req.params.token, secret);
         const encryptedPassword = bcrypt.hashSync(password, 8);
         await userModel.updateOne(
             {
-                _id: id
+                _id: id,
             }, 
             {
-                $set: {password: encryptedPassword}
-            }
+                $set: {password: encryptedPassword,}
+            },
             );
-        res.send('Verified');
+        res.send('Password updated');
     } catch (error) {
-        res.send('User not verified');
+        res.send('Something went wrong');
+        console.log(error);
     }
     console.log(req.params);
 };
