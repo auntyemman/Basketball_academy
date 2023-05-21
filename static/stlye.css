@@ -409,6 +409,11 @@ h3{
     padding: 22px;
     box-sizing: border-box;
 }
+.posts-thread{
+    display: block;
+    margin-top: 4.5em;
+
+}
 .comment-box{
     width: 50%;
     border: 1px solid #ccc;

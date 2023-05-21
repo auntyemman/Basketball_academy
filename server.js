@@ -122,17 +122,14 @@ app.get('/reset_password/:id/:token', (req, res) => {
   
 //get request for reset password
 app.get('/reset_password/:id/:token', async(req, res) => {
-    console.log(req.params);
     const oldUser = await userModel.findOne({ _id: req.params.id });
-    console.log(oldUser);
     if (!oldUser) {
       return res.send('User does not exist!!!');
     }
     const secret = process.env.JWT_SECRET + oldUser.password;
-    console.log(oldUser.password);
     try {
       const verify = jwt.verify(req.params.token, secret);
-      res.render('reset_password', {email: verify.email});
+      res.render('reset_password', {email: verify.email, id: req.params.id, token:req.params.token});
     } catch (error) {
       console.log(error);
       res.send('Not verified');

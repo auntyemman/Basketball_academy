@@ -12,7 +12,7 @@ router.post('/register', register);
 router.post('/forgot_password', forgotPassword);
 
 //reset password route
-router.post('/reset_password', resetPassword);
+router.post('/reset_password/:id/:token', resetPassword);
 
 // login user route
 router.post('/login', async (req, res) => {

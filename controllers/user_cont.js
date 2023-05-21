@@ -1,6 +1,7 @@
 require('dotenv').config();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const nodemailer = require('nodemailer');
 const userModel = require('../models/user_model');
 
 //signup controller
@@ -27,13 +28,35 @@ exports.register = (req, res) => {
 exports.forgotPassword = async (req, res) => {
     try {
         const oldUser = await userModel.findOne({ email: req.body.email });
-        //console.log(oldUser, 'from forgot password');
         if (!oldUser){
             res.send('User does not exist');
         }
         const secret = process.env.JWT_SECRET + oldUser.password;
         const token = jwt.sign({email: oldUser.email, id: oldUser._id}, secret, {expiresIn: '10m'});
-        link = `http://localhost:3000/reset_password/${oldUser._id}/${token}`;
+        link = `http://localhost:3000/reset_password/${oldUser._id}/${token}`; //link url with user id and user token
+
+        const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: 'auntyemman@gmail.com',
+            pass: process.env.GMAIL_PASS
+        }
+        });
+
+        const mailOptions = {
+        from: 'Molebasketballacademy@gmail.com',
+        to: req.body.email,
+        subject: 'Password reset link from Mole Basketball Academy',
+        html: `<h5>Follow the link below to reset your password</h5><p>${link}</p><p>Ignore this if you do not authorize it.</p>`
+        };
+
+        transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+            console.log(error);
+        } else {
+            console.log('Email sent: ' + info.response);
+        }
+        });
         res.send('Password reset sent to your email');
         console.log(link);
     } catch (error) {
@@ -43,20 +66,17 @@ exports.forgotPassword = async (req, res) => {
 
 //reset password controller
 exports.resetPassword = async (req, res) => {
-    console.log(req.params);
     const oldUser = await userModel.findOne({ _id: req.params.id });
-    console.log('old user is returning', oldUser);
     if (!oldUser) {
         res.send('User can not be reset');
     }
-    console.log(oldUser.password);
     const secret = process.env.JWT_SECRET + oldUser.password;
     try {
         const verify = jwt.verify(req.params.token, secret);
-        const encryptedPassword = bcrypt.hashSync(password, 8);
+        const encryptedPassword = bcrypt.hashSync(req.body.password, 8); //Encrypting the reset password
         await userModel.updateOne(
             {
-                _id: id,
+                _id: req.params.id,
             }, 
             {
                 $set: {password: encryptedPassword,}
@@ -67,5 +87,4 @@ exports.resetPassword = async (req, res) => {
         res.send('Something went wrong');
         console.log(error);
     }
-    console.log(req.params);
 };
