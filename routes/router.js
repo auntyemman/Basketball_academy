@@ -3,8 +3,10 @@ const userModel = require('../models/user_model');
 const { register, forgotPassword, resetPassword } = require('../controllers/user_cont')
 const bcrypt = require('bcryptjs');
 
+
 const router = express.Router();
 /*---------------------------------------------post requests-------------------------------------------*/
+
 //signing up or registration route
 router.post('/register', register);
 
@@ -19,12 +21,13 @@ router.post('/login', async (req, res) => {
     try {
         // check if the user exists
         const user = await userModel.findOne({ email: req.body.email });
+        console.log(user._id);
         if (user) {
           //check if password matches
           const result = bcrypt.compareSync(req.body.password, user.password);
           if (result) {
             req.session.user = req.body.email;
-            res.redirect('/route/dashboard');
+            res.redirect("/route/dashboard/" + user._id);
           } else {
             res.status(400).json({ error: "password doesn't match" });
           }
@@ -38,14 +41,22 @@ router.post('/login', async (req, res) => {
 
 /*----------------------------xxx-----------------post requests-------------------xxxx-----------------------*/
 
+
 /*---------------------------------------------get requests-------------------------------------------*/
 // dashboard route
-router.get('/dashboard', (req, res) => {
-    if(req.session.user) {
-        res.render('dashboard', {user: req.session.user});
+router.get('/dashboard/:id', async(req, res) => {
+  try {
+    const user = await userModel.findOne({ _id: req.params.id });
+    console.log(req.params);
+    //console.log(user);
+    if(req.params.id) {
+        res.render('dashboard', {user: user.firstname});
     }else {
         res.send('Unauthorized user!');
     }
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 // logout route

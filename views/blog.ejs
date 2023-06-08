@@ -80,7 +80,7 @@
              <!------------------blog posts thread------------------------>
             <div class="posts-thread" >
                 <h4>The log posts will appear here</h4>
-                <p>mole post</p>
+                <p>mole</p>
             </div>
         </div>
        
@@ -93,11 +93,11 @@
 <section class="comment-box">
     <div class="">
         <h4>Drop Your Comment Here</h4>
-        <form class="comment-form">
+        <form class="comment-form" action="<%= '/blog/blog_posts/'+ id %>" method="POST">
             <input type="text" placeholder="Enter Name" name="name">
             <input type="email" placeholder="Enter Email" name="email">
             <textarea rows="5" placeholder="Your Comment" name="comment"></textarea>
-            <button class="about-btn" action="" method="POST">POST YOUR COMMENT</button>
+            <button class="about-btn" type="submit">POST YOUR COMMENT</button>
         </form>
     </div>
 </section>

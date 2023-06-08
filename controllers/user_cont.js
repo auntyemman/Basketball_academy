@@ -86,5 +86,5 @@ exports.resetPassword = async (req, res) => {
     } catch (error) {
         res.send('Something went wrong');
         console.log(error);
-    }
-};
+    };
+}

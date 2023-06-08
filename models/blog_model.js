@@ -1,16 +1,16 @@
-const mongoose = required('mongoose');
+const mongoose = require('mongoose');
 
-const blogSchema = new mongoose.Schmema({
+const blogSchema = new mongoose.Schema({
     name: {
         type: String,
         require: true,
-        maxlength: 12,
+        maxlength: 20,
         trim: true
     },
     email: {
         type: String,
         required: true,
-        maxlength: 20,
+        maxlength: 30,
         unique: true,
         trim: true
     },
@@ -23,4 +23,4 @@ const blogSchema = new mongoose.Schmema({
 }, {timestamp: true})
 
 
-module.exports = mongoose.model('blog', blogSchema);
+module.exports = mongoose.model('blogModel', blogSchema);

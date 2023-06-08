@@ -10,6 +10,7 @@ const {v4:uuidv4} = require('uuid');
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
 const userModel = require('./models/user_model');
+const blogModel = require('./models/blog_model');
 //const { resetPassword } = require('./controllers/user_cont')
 
 const app = express();
@@ -46,12 +47,16 @@ app.use(session({
 }));
 /*
 app.use(passport.initialize());
-app.use(passport.session());*/
-
-//router routes folder import
+app.use(passport.session());
+*/
+ 
+//routes folder files import
 const router = require('./routes/router');
+const blog = require('./routes/blog');
 //using routes model
 app.use('/route', router);
+app.use('/blog', blog);
+
 /*
 //googleApi routes folder import
 const googleApi = require('./routes/google_auth');
@@ -136,5 +141,18 @@ app.get('/reset_password/:id/:token', async(req, res) => {
     }
   });
 
+app.get('/blog_posts/:id', async(req, res) => {
+  const post = await blogModel.findOne({_id: req.params.id});
+  console.log(post);
+  if (!post) {
+    res.send('Not accessible');
 
+  }
+  try {
+    res.render('blog',{comment: post.comment, id: req.params.id});
+  } catch (error) {
+    console.log(error);
+  }
+})
+// running the app
 app.listen(port, () => console.log('server connected at port 3000'));
